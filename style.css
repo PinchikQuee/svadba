@@ -51,21 +51,61 @@ body {
   }
   
   .main-photo {
-    width: 100%;
-    height: 180px;
-    background-color: #000;
+    width: 50%;
+    height: 280px;
+   
     margin-bottom: 24px;
     border-radius: 10px;
+    left: 100%;
 z-index: 1;}
     
     .img-main {
-        width: 100%;
-        height: 180px;
-        background-color: #000;
+        width: 11%;
+        height: 30%;
+  
         margin-bottom: 24px;
         border-radius: 10px;
-        object-fit: cover;
+        
+        position: absolute;
+        z-index: 1;
   }
+
+  .date-text {
+  
+  }
+  @keyframes ani {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+
+  .text-date {
+   
+    font-size: 100px;
+    margin: 0;
+    height: 90px;
+    color: #ffddfd;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  .date-text1{
+    animation:ani 1s forwards;
+    top: 15%;
+    left:52.5%; 
+    position: absolute;
+    
+  }
+  .date-text2{
+    animation:ani 2s forwards;
+    left: 53.5%;
+    top: 23%;
+    position: absolute;
+  }
+  .date-text3{
+    animation:ani 3s forwards;
+    left: 54.5%;
+    top: 31%;
+    position: absolute;
+  }
+
   
   h2 {
     text-align: center;
@@ -78,14 +118,7 @@ z-index: 1;}
     font-size: 16px;
   }
   
-  .icon.calendar {
-    width: 40px;
-    height: 40px;
-    background-image: url('https://i.imgur.com/MU9zTDa.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin: 10px auto;
-  }
+
   
   .restaurant-photo {
     width: 100%;
