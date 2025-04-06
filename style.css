@@ -53,6 +53,8 @@ body {
   .main-photo {
     width: 50%;
     height: 280px;
+    display: flex;
+    justify-content: center;
    
     margin-bottom: 24px;
     border-radius: 10px;
@@ -62,6 +64,8 @@ z-index: 1;}
     .img-main {
         width: 11%;
         height: 30%;
+        max-width: 90%;
+  height: auto;
   
         margin-bottom: 24px;
         border-radius: 10px;
