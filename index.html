@@ -1,79 +1,190 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Свадебное приглашение</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор БЖУ и ИМТ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #101010;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: #2c2c2c;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #FF5733;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            display: block;
+            text-align: left;
+            width: 100%;
+            margin-left: 20px;
+        }
+
+        input[type="number"], select {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1em;
+            color: #333;
+            background-color: #fff;
+        }
+
+        button {
+            padding: 15px 30px;
+            background-color: #FF5733;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff4500;
+        }
+
+        .result, .message {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .calculation {
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+
+        .result {
+            color: #fff;
+        }
+
+        .message {
+            color: #FF5733;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            .container {
+                padding: 20px;
+            }
+            input[type="number"], select {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-      
-  <div class="container">
-    <nav class="menu">
-      <a href="#date">Дата</a>
-      <a href="#program">Программа</a>
-      <a href="#address">Адрес</a>
-    </nav>
-    
-    <h1>Приглашаем на <span class="highlight">свадьбу</span></h1>
-<div class="date-text">
-<h1 class="text-date date-text1">01</h1>
-<h1 class="text-date date-text2">09</h1>
-<h1 class="text-date date-text3">25</h1>
-</div>
-    
+    <div class="container">
+        <h1>Калькулятор БЖУ и ИМТ</h1>
+        <p>Введите свой рост и вес, чтобы узнать, сколько вам нужно БЖУ и в каком вы состоянии.</p>
 
+        <label for="height">Рост (см):</label>
+        <input type="number" id="height" placeholder="Ваш рост">
 
-    <div class="main-photo">
-        <img class='img-main' src="/img/people.jpg" alt="">
+        <label for="weight">Вес (кг):</label>
+        <input type="number" id="weight" placeholder="Ваш вес">
+
+        <label for="goal">Цель:</label>
+        <select id="goal">
+            <option value="maintain">Поддержание веса</option>
+            <option value="lose">Похудение</option>
+            <option value="gain">Набор массы</option>
+        </select>
+
+        <button onclick="calculate()">Посчитать</button>
+
+        <div id="result" class="result"></div>
+        <div id="message" class="message"></div>
+        <div id="calculation" class="calculation"></div>
     </div>
 
+    <script>
+        function calculate() {
+            const height = document.getElementById("height").value;
+            const weight = document.getElementById("weight").value;
+            const goal = document.getElementById("goal").value;
 
-    <div class="star-2 star-center-2"></div>
+            if (!height || !weight) {
+                alert("Пожалуйста, введите и рост, и вес.");
+                return;
+            }
 
+            // Расчет ИМТ
+            const bmi = weight / ((height / 100) * (height / 100));
 
-    <section id="date">
-      <h2>Дата</h2>
-      <p>27 июля 2025</p>
-     
-    </section>
+            let message = '';
+            if (bmi < 18.5) {
+                message = 'Слишком худо! Пора поесть побольше!';
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                message = 'Вы в норме! Молочко пьете?';
+            } else if (bmi >= 25 && bmi <= 29.9) {
+                message = 'У вас есть пузико! Время в тренажерку!';
+            } else {
+                message = 'Ну, вы явно не на диете... Пора сжигать калории!';
+            }
 
-    <div class="star-1 star-center-1"></div>
+            // Расчет БЖУ в зависимости от цели
+            let protein, fat, carbs;
 
+            if (goal === "maintain") {
+                protein = weight * 1.6;
+                fat = weight * 1.2;
+                carbs = weight * 3.0;
+            } else if (goal === "lose") {
+                protein = weight * 1.8;  // Увеличиваем белки для сохранения мышц при похудении
+                fat = weight * 1.0;      // Уменьшаем жиры для ускорения похудения
+                carbs = weight * 2.0;    // Уменьшаем углеводы для сжигания жира
+            } else if (goal === "gain") {
+                protein = weight * 2.0;  // Увеличиваем белки для набора массы
+                fat = weight * 1.5;      // Увеличиваем жиры для лучшего усвоения калорий
+                carbs = weight * 3.5;    // Увеличиваем углеводы для дополнительной энергии
+            }
 
-    <section id="program">
-      <h2>Программа</h2>
-      <ul>
-        <li class="li-pr">16:00 — Сбор гостей</li>
-        <li class="li-pr">17:00 — Церемония</li>
-        <li class="li-pr">18:00 — Банкет</li>
-      </ul>
-    </section>
-
-
-    <section id="address">
-        <h2>Адрес</h2>
-        <p>г. Москва, ул. Любви, 7, Ресторан "Сердце"</p>
-        <div class="restaurant-photo">
-          <img class="img-rest" src="/img/IMG_1255.JPG" alt="">
-        </div>
-      </section>
-
-      <button class="rsvp-button" onclick="openForm()">Я приду!</button>
-
-      <div id="popupForm" class="popup-form">
-        <div class="form-content">
-          <span class="close-btn" onclick="closeForm()">&times;</span>
-          <h3>Как вас зовут?</h3>
-          <input type="text" id="nameInput" placeholder="Фамилия и имя">
-          <button onclick="sendToTelegram()">Отправить</button>
-        </div>
-      </div>
-   
-  
-    <script src="script.js"></script>
-
-
+            // Отображение результатов
+            document.getElementById("result").innerHTML = `Ваш ИМТ: ${bmi.toFixed(1)}`;
+            document.getElementById("message").innerHTML = message;
+            document.getElementById("calculation").innerHTML = `Белки: ${protein} г | Жиры: ${fat} г | Углеводы: ${carbs} г`;
+        }
+    </script>
 </body>
 </html>
